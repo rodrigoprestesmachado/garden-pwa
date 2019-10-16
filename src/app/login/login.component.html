@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Sing-in</mat-card-title>
+    <mat-card-subtitle>Garden project</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>E-mail:</mat-label>
+      <input matInput placeholder="Input" [(ngModel)]="email" />
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Input"
+        type="password"
+        [(ngModel)]="password"
+      />
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      (click)="login()"
+      mat-raised-button
+      color="primary"
+      routerLink="/dashboard"
+      routerLinkActive="true"
+    >
+      Sign-in
+    </button>
+  </mat-card-actions>
+</mat-card>
