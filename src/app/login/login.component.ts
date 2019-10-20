@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Injectable()
 @Component({
@@ -14,13 +15,13 @@ export class LoginComponent implements OnInit {
   password: string = "";
   static isAuthenticated: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {}
 
   btnLogin() {
     if (this.email !== "" && this.password !== "") {
-      this.search("A");
+      this.getAutenticated();
     }
   }
 
@@ -29,27 +30,8 @@ export class LoginComponent implements OnInit {
       .get<MessageModel>("http://localhost:8080/Garden/ws/api/open")
       .subscribe(objMessage => {
         LoginComponent.isAuthenticated = Boolean(objMessage.result);
+        this.router.navigate(["dashboard"]);
       });
-  }
-
-  search(term: string) {
-    let promise = new Promise((resolve, reject) => {
-      this.http
-        .get<MessageModel>("http://localhost:8080/Garden/ws/api/open")
-        .toPromise()
-        .then(
-          objMessage => {
-            // Success
-            LoginComponent.isAuthenticated = Boolean(objMessage.result);
-            resolve();
-          },
-          msg => {
-            // Error
-            reject(msg);
-          }
-        );
-    });
-    return promise;
   }
 }
 
