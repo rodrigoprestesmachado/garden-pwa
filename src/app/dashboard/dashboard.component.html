@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-content>
     <section>
-      <mat-slide-toggle [(ngModel)]="situation">
+      <mat-slide-toggle (change)="onChange()" [(ngModel)]="situation">
         Molhar
       </mat-slide-toggle>
     </section>

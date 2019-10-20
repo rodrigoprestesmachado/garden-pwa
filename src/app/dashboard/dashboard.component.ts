@@ -6,9 +6,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
-  situation: false;
+  situation: boolean;
 
   constructor() {}
 
   ngOnInit() {}
+
+  onChange() {
+    console.log("aaaaaaaaaaaa" + this.situation);
+  }
 }
