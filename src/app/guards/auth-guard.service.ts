@@ -9,6 +9,6 @@ export class AuthGuardService implements CanActivate {
   constructor() {}
 
   canActivate() {
-    return LoginComponent.autenticated;
+    return LoginComponent.isAuthenticated;
   }
 }

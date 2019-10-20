@@ -20,6 +20,8 @@ import { LoginComponent } from "./login/login.component";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "./guards/auth-guard.service";
 
+import { HttpClientModule } from "@angular/common/http";
+
 const appRoutes: Routes = [
   {
     path: "dashboard",
@@ -36,7 +38,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     ),
     NoopAnimationsModule,
     MatButtonModule,
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatSlideToggleModule,
     MatToolbarModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
