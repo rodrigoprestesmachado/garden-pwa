@@ -27,7 +27,7 @@ import { Router } from "@angular/router";
  */
 @Injectable()
 @Component({
-  selector: "rpm-login",
+  selector: "garden-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })

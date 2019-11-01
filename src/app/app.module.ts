@@ -39,6 +39,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "./guards/auth-guard.service";
 
 import { HttpClientModule } from "@angular/common/http";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
   {
@@ -67,7 +69,8 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatSnackBarModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
