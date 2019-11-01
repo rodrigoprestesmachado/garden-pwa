@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     // note: red is the defaul/main tap the data base
     this.http
       .get<TapModel>(
-        "http://localhost:8080/Garden/ws/api/open/red/" + this.situation
+        "http://localhost:8080/Garden/api/v1/open/red/" + this.situation
       )
       .subscribe(returnMessage => {
         if (returnMessage.open !== "none") {

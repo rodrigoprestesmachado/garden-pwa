@@ -39,16 +39,16 @@ import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService } from "./guards/auth-guard.service";
 
 import { HttpClientModule } from "@angular/common/http";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "../environments/environment";
 
 const appRoutes: Routes = [
+  { path: "", component: LoginComponent },
   {
     path: "dashboard",
     component: DashboardComponent,
     canActivate: [AuthGuardService]
-  },
-  { path: "", component: LoginComponent }
+  }
 ];
 
 @NgModule({
@@ -70,7 +70,9 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     FormsModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

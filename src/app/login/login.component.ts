@@ -19,6 +19,7 @@ import { Component, OnInit } from "@angular/core";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 /**
  * Login Component
@@ -34,9 +35,16 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   email: string = "";
   password: string = "";
+
+  URL: string = "http://localhost:8080/Garden/api/v1/sigin/";
+
   static isAuthenticated: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {}
 
@@ -45,7 +53,10 @@ export class LoginComponent implements OnInit {
    */
   btnLogin() {
     if (this.email !== "" && this.password !== "") {
+      //this.router.navigate(["dashboard"]);
       this.signIn();
+    } else {
+      this.openSnackBar("Os campos estão vazios", "");
     }
   }
 
@@ -54,13 +65,29 @@ export class LoginComponent implements OnInit {
    */
   signIn() {
     this.http
-      .get<AuthenticationModel>("http://localhost:8080/Garden/ws/api/auth")
-      .subscribe(returnMessage => {
+      .get<AuthenticationModel>(this.URL + this.email + "/" + this.password)
+      .subscribe(objJson => {
         // indicates that the user is authenticated or not
-        LoginComponent.isAuthenticated = Boolean(returnMessage.auth);
-        // Navigates to the /dashboard URL
-        this.router.navigate(["dashboard"]);
+        if (objJson.sigin) {
+          LoginComponent.isAuthenticated = true;
+          this.router.navigate(["dashboard"]);
+        } else {
+          this.openSnackBar("Usuário não encontrado", "");
+        }
+        console.log(LoginComponent.isAuthenticated);
       });
+  }
+
+  /**
+   * Open a snack-bar message
+   *
+   * @param message String : the message
+   * @param action String : some action link
+   */
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000
+    });
   }
 }
 
@@ -68,8 +95,8 @@ export class LoginComponent implements OnInit {
  * Convert the JSON String to a JS object
  */
 export class AuthenticationModel {
-  auth: boolean;
+  sigin: boolean;
   constructor(public value: boolean) {
-    this.auth = value;
+    this.sigin = value;
   }
 }
